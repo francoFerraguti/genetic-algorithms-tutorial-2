@@ -9,11 +9,11 @@ public static class PhraseHelper
         rand = new Random();
     }
 
-    public static string GetRandomPhrase()
+    public static string GetRandomPhrase(int nLettersPerPhrase)
     {
         string phrase = "";
 
-        for (int i = 0; i < Config.nLettersPerPhrase; i++)
+        for (int i = 0; i < nLettersPerPhrase; i++)
         {
             phrase += GetRandomLetter();
         }
