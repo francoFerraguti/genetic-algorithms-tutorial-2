@@ -26,6 +26,11 @@ public static class PopulationManager
 
     public static void AdvanceGeneration()
     {
+        List<GameObject> newPopulation = new List<GameObject>();
+
         FitnessHelper.CalculateFitness(population);
+
+        newPopulation.AddRange(FitnessHelper.GetIndividualsWithHighestFitness(population, Config.nIndividualsToAdvanceAutomatically));
+        newPopulation.AddRange(ReproductionHelper.GetNewIndividuals(population, Config.nIndividuals - Config.nIndividualsToAdvanceAutomatically));
     }
 }
