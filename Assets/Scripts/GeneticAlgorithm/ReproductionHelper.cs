@@ -11,20 +11,34 @@ public static class ReproductionHelper
         rand = new System.Random();
     }
 
-    public static List<GameObject> GetNewIndividuals(List<GameObject> population, int nIndividuals)
+    public static List<Individual> GetNewIndividuals(List<Individual> population, int nIndividuals)
     {
-        List<GameObject> childrenIndividuals = new List<GameObject>();
+        List<Individual> childrenIndividuals = new List<Individual>();
 
         for (int i = 0; i < nIndividuals; i++)
         {
-            GameObject parent1 = SpinRoulette(population);
-            GameObject parent2 = SpinRoulette(population, parent1);
+            Individual parent1 = SpinRoulette(population);
+            Individual parent2 = SpinRoulette(population, parent1);
+            childrenIndividuals.Add(Crossover(parent1, parent2));
         }
 
         return childrenIndividuals;
     }
 
-    private static GameObject SpinRoulette(List<GameObject> population, GameObject alreadySelectedIndividual = null)
+    private static Individual Crossover(Individual parent1, Individual parent2)
+    {
+        Individual child = new Individual();
+        child.dna.phrase = "";
+
+        for (int i = 0; i < parent1.dna.phrase.Length; i++)
+        {
+            child.dna.phrase += (i % 2 == 0) ? parent1.dna.phrase[i] : parent2.dna.phrase[i];
+        }
+
+        return child;
+    }
+
+    private static Individual SpinRoulette(List<Individual> population, Individual alreadySelectedIndividual = null)
     {
         int totalFitness = FitnessHelper.GetPopulationTotalFitness(population);
         int rouletteResult = rand.Next(0, totalFitness);
@@ -32,7 +46,7 @@ public static class ReproductionHelper
 
         for (int i = 0; i < population.Count; i++)
         {
-            portionCounter += population[i].GetComponent<Individual>().fitness;
+            portionCounter += population[i].fitness;
 
             if (portionCounter > rouletteResult)
             {

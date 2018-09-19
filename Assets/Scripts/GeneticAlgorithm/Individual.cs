@@ -2,14 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Individual : MonoBehaviour
 {
-
     public int fitness = 0;
     public DNA dna;
 
-    public void Init()
+    public Individual()
     {
         dna = new DNA();
     }
+
+    public void Clean()
+    {
+        fitness = 0;
+        dna = new DNA();
+    }
+
     public void CalculateFitness()
     {
         fitness = 0;

@@ -18,7 +18,7 @@ public class Orchestrator : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKey("space"))
         {
             PopulationManager.AdvanceGeneration();
         }

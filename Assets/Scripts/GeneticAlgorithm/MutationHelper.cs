@@ -11,7 +11,7 @@ public static class MutationHelper
         rand = new System.Random();
     }
 
-    public static void MutatePopulation(List<GameObject> population)
+    public static void MutatePopulation(List<Individual> population)
     {
         for (int i = 0; i < population.Count; i++)
         {
@@ -19,9 +19,9 @@ public static class MutationHelper
         }
     }
 
-    private static void MutateIndividual(GameObject individual)
+    private static void MutateIndividual(Individual individual)
     {
-        string currentPhrase = individual.GetComponent<Individual>().dna.phrase;
+        string currentPhrase = individual.dna.phrase;
         string newPhrase = "";
 
         for (int i = 0; i < currentPhrase.Length; i++)
@@ -29,6 +29,6 @@ public static class MutationHelper
             newPhrase += (rand.Next(0, 10000) < Config.mutationRate * 100) ? PhraseHelper.GetRandomLetter() : currentPhrase[i];
         }
 
-        individual.GetComponent<Individual>().dna.phrase = newPhrase;
+        individual.dna.phrase = newPhrase;
     }
 }

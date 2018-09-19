@@ -3,9 +3,9 @@ using UnityEngine;
 
 public static class PopulationHelper
 {
-    public static List<GameObject> CopyPopulation(List<GameObject> population)
+    public static List<Individual> CopyPopulation(List<Individual> population)
     {
-        List<GameObject> populationCopy = new List<GameObject>();
+        List<Individual> populationCopy = new List<Individual>();
 
         for (int i = 0; i < population.Count; i++)
         {

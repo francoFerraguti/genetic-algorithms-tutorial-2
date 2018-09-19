@@ -3,21 +3,21 @@ using UnityEngine;
 
 public static class FitnessHelper
 {
-    public static void CalculateFitness(List<GameObject> population)
+    public static void CalculateFitness(List<Individual> population)
     {
         for (int i = 0; i < population.Count; i++)
         {
-            population[i].GetComponent<Individual>().CalculateFitness();
+            population[i].CalculateFitness();
         }
     }
 
-    public static Vector3 GetFitnessInformation(List<GameObject> population)
+    public static Vector3 GetFitnessInformation(List<Individual> population)
     {
         Vector3 fitnesses = new Vector3(int.MinValue, 0, int.MaxValue);
 
         for (int i = 0; i < population.Count; i++)
         {
-            int currentFitness = population[i].GetComponent<Individual>().fitness;
+            int currentFitness = population[i].fitness;
 
             if (currentFitness > fitnesses.x)
             {
@@ -36,30 +36,30 @@ public static class FitnessHelper
         return fitnesses;
     }
 
-    public static int GetPopulationTotalFitness(List<GameObject> population)
+    public static int GetPopulationTotalFitness(List<Individual> population)
     {
         int totalFitness = 0;
 
         for (int i = 0; i < population.Count; i++)
         {
-            totalFitness += population[i].GetComponent<Individual>().fitness;
+            totalFitness += population[i].fitness;
         }
 
         return totalFitness;
     }
 
-    public static List<GameObject> GetIndividualsWithHighestFitness(List<GameObject> population, int nIndividuals)
+    public static List<Individual> GetIndividualsWithHighestFitness(List<Individual> population, int nIndividuals)
     {
-        List<GameObject> populationCopy = PopulationHelper.CopyPopulation(population);
-        List<GameObject> individualsWithHighestFitness = new List<GameObject>();
+        List<Individual> populationCopy = PopulationHelper.CopyPopulation(population);
+        List<Individual> individualsWithHighestFitness = new List<Individual>();
 
         for (int i = 0; i < nIndividuals; i++)
         {
-            GameObject individualWithHighestFitness = populationCopy[0];
+            Individual individualWithHighestFitness = populationCopy[0];
 
             for (int j = 1; j < populationCopy.Count; j++)
             {
-                if (populationCopy[j].GetComponent<Individual>().fitness > individualWithHighestFitness.GetComponent<Individual>().fitness)
+                if (populationCopy[j].fitness > individualWithHighestFitness.fitness)
                 {
                     individualWithHighestFitness = populationCopy[j];
                 }
