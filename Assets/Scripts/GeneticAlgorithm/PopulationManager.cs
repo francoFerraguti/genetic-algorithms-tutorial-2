@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public static class PopulationManager
 {
     private static List<GameObject> population;
+    private static int generationNumber = 0;
 
     public static void Init()
     {
@@ -32,5 +33,12 @@ public static class PopulationManager
 
         newPopulation.AddRange(FitnessHelper.GetIndividualsWithHighestFitness(population, Config.nIndividualsToAdvanceAutomatically));
         newPopulation.AddRange(ReproductionHelper.GetNewIndividuals(population, Config.nIndividuals - Config.nIndividualsToAdvanceAutomatically));
+        MutationHelper.MutatePopulation(population);
+
+        generationNumber++;
+
+        UIManager.UpdateBestPhrase(newPopulation[0].GetComponent<Individual>().dna.phrase);
+        UIManager.UpdateGenerationNumber(generationNumber);
+        UIManager.UpdateFitnesses(FitnessHelper.GetFitnessInformation(population));
     }
 }
